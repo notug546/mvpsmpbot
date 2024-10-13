@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: discord-bot
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn bot:app
+  - type: worker
+    name: discord-bot-worker
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    envVars:
+      - key: DISCORD_TOKEN
+        sync: false
